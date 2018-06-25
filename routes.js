@@ -74,8 +74,26 @@ var welcome = function(req, responseObj){
 var loginSucess = function(responseObj){
 	return new Promise(function(resolve,reject){
 		simpleResponse(responseObj, "Login success")
-		.then(function(result){		
-			return listItem(result,"Kindly select the service category");	
+		.then(function(result){	
+			var items = [
+				{
+				  "info": {
+					"key": "HR Self Service"
+				  },
+				  "title": "HR Self Service",
+				  "description": "for Leave management, Employee Search",
+				  "image": {}
+				},
+				{
+				  "info": {
+					"key": "IT Self Service"
+				  },
+				  "title": "IT Self Service",
+				  "description": "For : Account recovery , Help desk",
+				  "image": {}
+				}
+			  ];
+			return listItem(result, "Kindly select the service category",items);	
 		})
 		.then(function(result){
 			console.log(JSON.stringify(result));
@@ -102,31 +120,18 @@ var verifyOtp = function(req,responseObj){
 		}
 	});
 }
-var listItem = function (response, responseText){
-	return new Promise(function(resolve,reject){
-		response.payload.google.richResponse.items.push({
-		"listSelect": {
-			  "title": responseText,
-			  "items": [
-				{
-				  "info": {
-					"key": "HR Self Service"
-				  },
-				  "title": "HR Self Service",
-				  "description": "for Leave management, Employee Search",
-				  "image": {}
-				},
-				{
-				  "info": {
-					"key": "IT Self Service"
-				  },
-				  "title": "IT Self Service",
-				  "description": "For : Account recovery , Help desk",
-				  "image": {}
+var listItem = function (response,text, items){
+	return new Promise(function(resolve,reject){		
+			response.payload.google.richResponse.systemIntent = {
+				"intent": "actions.intent.OPTION",
+				"data": {
+					"@type": "type.googleapis.com/google.actions.v2.OptionValueSpec",
+					"listSelect": {
+					  "title": text,
+					  "items": items
+					}
 				}
-			  ]
-			}
-		});
+			}		
 		resolve(response);
 	});
 }

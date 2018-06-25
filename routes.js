@@ -199,10 +199,10 @@ var suggestions = function(response, chips){
 
 var defaultFallBack = function(req, response){
 	return new Promise(function(resolve,reject){
-		response= {
+		response= {platform:'google',type:'custom_payload',followupEvent:{
 					name:"HRService",
 					data:{},
-			}
+			}}
 		resolve(response);		
 	});
 }

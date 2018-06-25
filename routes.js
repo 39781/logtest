@@ -18,7 +18,7 @@ router.post('/botHandler',function(req, res){
 		case 'input.welcome':func = welcome;break;
 		case 'input.verifyOtp': func = verifyOtp;break;
 	}
-	func(req,responseObj)
+	func(req.body,responseObj)
 	.then(function(result){
 		res.json(result).end();
 	})
@@ -58,7 +58,7 @@ var welcome = function(req, responseObj){
 		  {
 			"title": "Login",
 			"openUrlAction": {
-			  "url": "https://logintests.herokuapp.com/login.html?convId = "+originalDetectIntentRequest.payload.conversation.conversationId
+			  "url": "https://logintests.herokuapp.com/login.html?convId = "+req.originalDetectIntentRequest.payload.conversation.conversationId
 			}
 		  }
 		]

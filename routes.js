@@ -197,15 +197,13 @@ var suggestions = function(response, chips){
 	});	
 }
 
-var defaultFallBack = function(req, responseObj){
+var defaultFallBack = function(req, response){
 	return new Promise(function(resolve,reject){
-		resolve(
-			{
-				followupEvent :{
+		response.payload.followupEvent = {
 					name:"HRService",
 					data:{},
 			}
-			});		
+		resolve(response);		
 	});
 }
 module.exports = router;

@@ -193,9 +193,9 @@ var suggestions = function(response, chips){
 	console.log('suggestions');
 	return new Promise(function(resolve,reject){		
 		response.payload.google.suggestions = chips;		
-	});
-	console.log(JSON.stringify(response));
-	resolve(response);
+		console.log(JSON.stringify(response));
+		resolve(response);
+	});	
 }
 
 module.exports = router;

@@ -8,7 +8,7 @@ module.exports = {
 		  "richResponse": {
 			"items": []
 		  },
-		  suggestions:[]
+		  "suggestions":[]
 		}
 	  }
 	},

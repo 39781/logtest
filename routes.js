@@ -81,27 +81,33 @@ var loginSucess = function(responseObj){
 			var items = [
 				{
 				  "optionInfo": {
-					"key": "HR Self Service"
+					"key": "HR",
+					"synonyms": [
+						"HR Self Service"
+					]
 				  },
 				  "title": "HR Self Service",
-				  "description": "for Leave management, Employee Search",
-				  "image": {}
+				  "description": "for Leave management, Employee Search",				  
 				},
 				{
 				  "optionInfo": {
-					"key": "IT Self Service"
+					"key": "IT",
+					"synonyms": [
+						"IT Self Service"
+					]
 				  },
 				  "title": "IT Self Service",
-				  "description": "For : Account recovery , Help desk",
-				  "image": {}
+				  "description": "For : Account recovery , Help desk",				  
 				},
 				{
 				  "optionInfo": {
-					"key": "Meeting Self Service"
+					"key": "Meeting",
+					"synonyms": [
+						"Meeting Self Service"
+					]
 				  },
 				  "title": "Meeting Self Service",
-				  "description": "For : creating create, cancel and reschedule meeting",
-				  "image": {}
+				  "description": "For : creating create, cancel and reschedule meeting",				  
 				}
 			  ];
 			return listItem(result, "Kindly select the service category",items);	

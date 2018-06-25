@@ -199,12 +199,11 @@ var suggestions = function(response, chips){
 
 var defaultFallBack = function(req, response){
 	return new Promise(function(resolve,reject){
-		response= {		
-				"speech": "",
-				"displayText":"",
-				"followupEvent":{
-					"name":"HRService",
-					"data":{  						
+		response= {google:{						
+					"followupEvent":{
+						"name":"HRService",
+						"data":{  						
+						}
 					}
 				}
 			}

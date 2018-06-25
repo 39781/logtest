@@ -119,7 +119,8 @@ var loginSucess = function(responseObj){
 			return suggestions(result, chips);
 		})
 		.then(function(result){	
-			console.log(JSON.stringify(result));		
+			//console.log(JSON.stringify(result));
+				console.log('leving log sucess');
 			resolve(result);
 		})
 		
@@ -133,8 +134,9 @@ var verifyOtp = function(req,responseObj){
 		console.log(req.queryResult.parameters.otp);
 		if(Otps[req.originalDetectIntentRequest.payload.conversation.conversationId]==req.queryResult.parameters.otp){		
 			loginSucess(responseObj)
-			.then(function(result){		
-				console.log(JSON.stringify(result));			
+			.then(function(result){	
+					console.log('leveing verify OTp');
+			//	console.log(JSON.stringify(result));			
 				resolve(result);
 			})		
 		}else{
@@ -190,7 +192,7 @@ var suggestions = function(response, chips){
 	console.log('suggestions');
 	return new Promise(function(resolve,reject){		
 		response.payload.google.richResponse.suggestions = chips;		
-		console.log(JSON.stringify(response));
+		//console.log(JSON.stringify(response));
 		resolve(response);
 	});	
 }

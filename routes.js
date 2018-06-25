@@ -20,6 +20,7 @@ router.post('/botHandler',function(req, res){
 	func(req.body,responseObj)
 	.then(function(result){
 		console.log(result);
+		console.log(JSON.stringify(result));
 		res.json(result).end();
 	})
 	
@@ -77,7 +78,7 @@ var loginSucess = function(responseObj){
 		.then(function(result){	
 			var items = [
 				{
-				  "info": {
+				  "optionInfo": {
 					"key": "HR Self Service"
 				  },
 				  "title": "HR Self Service",
@@ -85,7 +86,7 @@ var loginSucess = function(responseObj){
 				  "image": {}
 				},
 				{
-				  "info": {
+				  "optionInfo": {
 					"key": "IT Self Service"
 				  },
 				  "title": "IT Self Service",
@@ -95,8 +96,7 @@ var loginSucess = function(responseObj){
 			  ];
 			return listItem(result, "Kindly select the service category",items);	
 		})
-		.then(function(result){
-			console.log(JSON.stringify(result));
+		.then(function(result){			
 			resolve(result);
 		})
 	});

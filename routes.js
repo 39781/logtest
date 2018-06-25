@@ -104,8 +104,19 @@ var loginSucess = function(responseObj){
 			  ];
 			return listItem(result, "Kindly select the service category",items);	
 		})
-		.then(function(result){			
-			return suggentions(result, ["HR Self Service","IT Self Service","Meeting Self Service"]);
+		.then(function(result){		
+			var chips = [
+				{
+					title:"HR Self Service"				
+				},
+				{
+					title:"IT Self Service",
+				},
+				{
+					title:"Meeting Self Service"
+				}
+			];							
+			return suggestions(result, chips);
 		})
 		.then(function(result){			
 			resolve(result);
@@ -172,9 +183,9 @@ var basicCard = function(response,text, buttons){
 	});
 }
 
-var suggentions = function(response, chips){
+var suggestions = function(response, chips){
 	return new Promise(function(resolve,reject){		
-		response.payload.google.suggentions = chips;
+		response.payload.google.suggestions = chips;
 	});
 	resolve(response);
 }

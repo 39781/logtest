@@ -107,17 +107,7 @@ var loginSucess = function(responseObj){
 			return listItem(result, "Kindly select the service category",items);	
 		})
 		.then(function(result){		
-			var chips = [
-				{
-					title:"HR Self Service"				
-				},
-				{
-					title:"IT Self Service",
-				},
-				{
-					title:"Meeting Self Service"
-				}
-			];							
+			var chips = [];							
 			console.log('sugge');
 			return suggestions(result, chips);
 		})

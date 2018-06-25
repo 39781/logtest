@@ -1,0 +1,156 @@
+var express 		= require('express');
+var router			= express.Router();	 
+var fs 				= require("fs");	
+var request			= require('request');
+var config			= require('./config.js');
+var path			= require("path");	
+
+var Otps ={};
+router.get('/close',function(req,res){
+	res.redirect('close.html');
+})
+
+router.post('/botHandler',function(req, res){	
+	var actionName = req.queryResult.action;
+	switch(actionName){
+		case 'input.welcome':func = welcome;break;
+		case 'input.verifyOtp': func = verifyOtp;break;
+	}
+	func(req)
+	.then(function(result){
+		res.json(result).end();
+	})
+	
+	/*
+	
+	*/
+	
+});	
+
+
+router.post('/validateUser',function(req, res){
+	var emps = config.employees;
+	currentSession = req.body.sess;
+	console.log(typeof(emps[req.body.username]));
+	if(typeof(emps[req.body.username])!='undefined'){
+		var smsApi = config.smsApi.replace('phonenumber',emps[req.body.username].ph);	
+		smsApi = smsApi.replace('Otpnumber',45627);
+		smsApi = smsApi.replace('name',emps[req.body.username].name);
+		Otps[req.body.sess] = 45627;
+		console.log(smsApi,emps[req.body.username].ph);
+		request(smsApi,function(error,response,body){
+			console.log(error,body);
+			res.status(200);
+			res.json({status:true}).end();
+		});		
+	}else{
+		console.log('fail');
+		res.status(400);
+		res.json({status:false}).end();
+	}		
+});
+var welcome = function(req){
+	simpleResponse("Hi I'm Hema !. I can help you to manage your leaves,search an employee, account recovery and create or track your service tickets. Please login to begin.")
+	.then(function(result){
+		var buttons = [
+		  {
+			"title": "Login",
+			"openUrlAction": {
+			  "url": "https://logintests.herokuapp.com/login.html?convId = "+originalDetectIntentRequest.payload.conversation.conversationId
+			}
+		  }
+		]
+		return basicCard(result, buttons);
+	})
+	.then(function(result){
+		return(result);
+	})
+}
+
+var loginSucess = function(){
+	return new Promise(function(resolve,reject){
+		simpleResponse("Login success")
+		.then(function(result){		
+			return listItem(result);	
+		})
+		.then(function(result){
+			resolve(result);
+		})
+	});
+});
+
+var verifyOtp = function(req){
+	if(Otps[req.originalDetectIntentRequest.payload.conversation.conversationId]==req.body.queryResult.parameters.otp){		
+		loginSucess()
+		.then(function(result){
+			res.status(200);
+			res.json(result).end();
+		})		
+	}else{
+		simpleResponse("Invalid OTP : please enter valid password");
+		.then(function(result){
+			res.status(200);
+			res.json(result).end();	
+		});		
+	}
+}
+var listItem = function (response, responseText){
+	return new Promise(function(resolve,reject){
+		response.payload.google.richResponse.items.push(
+		"listSelect": {
+			  "title": "Kindly select the service category",
+			  "items": [
+				{
+				  "info": {
+					"key": "HR Self Service"
+				  },
+				  "title": "HR Self Service",
+				  "description": "for Leave management, Employee Search",
+				  "image": {}
+				},
+				{
+				  "info": {
+					"key": "IT Self Service"
+				  },
+				  "title": "IT Self Service",
+				  "description": "For : Account recovery , Help desk",
+				  "image": {}
+				}
+			  ]
+			}
+		);
+		resolve(response);
+	});
+}
+var simpleResponse = function(response, responseText){
+	return new Promise(function(resolve,reject){
+		response.payload.google.richResponse.items.push({
+			"simpleResponse": {
+				"textToSpeech": responseText,
+				"displayText": responseText
+			}
+		});	
+		resolve(response);
+	})
+			
+}
+var basicCard = function(response,text, buttons){
+	return new Promise(function(resolve,reject){		
+		response.payload.google.richResponse.items.push(
+			{"basicCard": {
+			  "formattedText": text,			 
+			  "buttons": buttons,
+			   "image": {},
+			}		
+		});		
+	resolve(response);
+	});
+}
+
+
+module.exports = router;
+
+
+
+
+

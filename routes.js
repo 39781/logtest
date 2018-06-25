@@ -118,7 +118,8 @@ var loginSucess = function(responseObj){
 			];							
 			return suggestions(result, chips);
 		})
-		.then(function(result){			
+		.then(function(result){	
+			console.log(JSON.stringify(result));		
 			resolve(result);
 		})
 		
@@ -132,7 +133,8 @@ var verifyOtp = function(req,responseObj){
 		console.log(req.queryResult.parameters.otp);
 		if(Otps[req.originalDetectIntentRequest.payload.conversation.conversationId]==req.queryResult.parameters.otp){		
 			loginSucess(responseObj)
-			.then(function(result){				
+			.then(function(result){		
+				console.log(JSON.stringify(result));			
 				resolve(result);
 			})		
 		}else{
@@ -185,8 +187,9 @@ var basicCard = function(response,text, buttons){
 
 var suggestions = function(response, chips){
 	return new Promise(function(resolve,reject){		
-		response.payload.google.suggestions = chips;
+		response.payload.google.suggestions = chips;		
 	});
+	console.log(JSON.stringify(response));
 	resolve(response);
 }
 

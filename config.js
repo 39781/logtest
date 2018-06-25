@@ -7,7 +7,8 @@ module.exports = {
 		  "expectUserResponse": true,
 		  "richResponse": {
 			"items": []
-		  }
+		  },
+		  suggestions:[]
 		}
 	  }
 	},

@@ -79,7 +79,7 @@ var loginSucess = function(responseObj){
 			var items = [
 				{
 				  "optionInfo": {
-					"key": "HR"
+					"key": "HR Self Service"
 				  },
 				  "title": "HR Self Service",
 				  "description": "for Leave management, Employee Search",
@@ -87,18 +87,30 @@ var loginSucess = function(responseObj){
 				},
 				{
 				  "optionInfo": {
-					"key": "IT"
+					"key": "IT Self Service"
 				  },
 				  "title": "IT Self Service",
 				  "description": "For : Account recovery , Help desk",
+				  "image": {}
+				},
+				{
+				  "optionInfo": {
+					"key": "Meeting Self Service"
+				  },
+				  "title": "Meeting Self Service",
+				  "description": "For : creating create, cancel and reschedule meeting",
 				  "image": {}
 				}
 			  ];
 			return listItem(result, "Kindly select the service category",items);	
 		})
 		.then(function(result){			
+			return suggentions(result, ["HR Self Service","IT Self Service","Meeting Self Service"]);
+		})
+		.then(function(result){			
 			resolve(result);
 		})
+		
 	});
 };
 
@@ -160,6 +172,11 @@ var basicCard = function(response,text, buttons){
 	});
 }
 
+var suggentions = function(response, chips){
+	return new Promise(function(resolve,reject){		
+		response.payload.google.suggentions = chips;
+	});
+}
 
 module.exports = router;
 

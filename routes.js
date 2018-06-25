@@ -16,6 +16,7 @@ router.post('/botHandler',function(req, res){
 	switch(actionName){
 		case 'input.welcome':func = welcome;break;
 		case 'input.verifyOtp': func = verifyOtp;break;
+		case 'input.unknown':func = defaultFallBack;break;
 	}
 	func(req.body,responseObj)
 	.then(function(result){
@@ -194,6 +195,17 @@ var suggestions = function(response, chips){
 	});	
 }
 
+var defaultFallBack = function(req, responseObj){
+	return new Promise(function(resolve,reject){
+		resolve(
+			{
+				followupEvent :{
+					name:"HRService",
+					data:{},
+			}
+			});		
+	});
+}
 module.exports = router;
 
 

@@ -199,10 +199,11 @@ var suggestions = function(response, chips){
 
 var defaultFallBack = function(req, response){
 	return new Promise(function(resolve,reject){
-		response= {		
+		response= {
+				"fulfillmentText": '',
 				"followupEventInput":{
 					"name":"HRService",
-					"data":{  						
+					"parameters":{  						
 					}
 				}
 			}

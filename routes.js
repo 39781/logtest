@@ -122,7 +122,7 @@ var verifyOtp = function(req,responseObj){
 }
 var listItem = function (response,text, items){
 	return new Promise(function(resolve,reject){		
-			response.payload.google.richResponse.systemIntent = {
+			response.payload.google.systemIntent = {
 				"intent": "actions.intent.OPTION",
 				"data": {
 					"@type": "type.googleapis.com/google.actions.v2.OptionValueSpec",

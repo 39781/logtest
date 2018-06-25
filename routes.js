@@ -59,7 +59,7 @@ var welcome = function(req, responseObj){
 			  {
 				"title": "Login",
 				"openUrlAction": {
-				  "url": "https://logintests.herokuapp.com/login.html?convId = "+req.originalDetectIntentRequest.payload.conversation.conversationId
+				  "url": "https://logintests.herokuapp.com/login.html?convId="+req.originalDetectIntentRequest.payload.conversation.conversationId
 				}
 			  }
 			]

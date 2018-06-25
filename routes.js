@@ -176,6 +176,7 @@ var suggentions = function(response, chips){
 	return new Promise(function(resolve,reject){		
 		response.payload.google.suggentions = chips;
 	});
+	resolve(response);
 }
 
 module.exports = router;

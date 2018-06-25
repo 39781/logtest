@@ -200,9 +200,7 @@ var suggestions = function(response, chips){
 var defaultFallBack = function(req, response){
 	return new Promise(function(resolve,reject){
 		response= {		
-				"platform":"ACTIONS_ON_GOOGLE",
-				"type":'custom_payload',
-				"followupEvent":{
+				"followupEventInput":{
 					"name":"HRService",
 					"data":{  						
 					}

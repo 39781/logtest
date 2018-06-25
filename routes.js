@@ -199,7 +199,7 @@ var suggestions = function(response, chips){
 
 var defaultFallBack = function(req, response){
 	return new Promise(function(resolve,reject){
-		response.payload.followupEvent = {
+		response.followupEvent = {
 					name:"HRService",
 					data:{},
 			}

@@ -63,7 +63,7 @@ var welcome = function(req, responseObj){
 				}
 			  }
 			]
-			return basicCard(result,"Please login to Help you" buttons);
+			return basicCard(result,"Please login to Help you", buttons);
 		})
 		.then(function(result){
 			resolve(result);		

@@ -10,8 +10,7 @@ router.get('/close',function(req,res){
 	res.redirect('close.html');
 })
 
-router.post('/botHandler',function(req, res){	
-	console.log(req.body.queryResult);
+router.post('/botHandler',function(req, res){		
 	var responseObj = JSON.parse(JSON.stringify(config.responseObj));
 	var actionName = req.body.queryResult.action;
 	switch(actionName){
@@ -20,6 +19,7 @@ router.post('/botHandler',function(req, res){
 	}
 	func(req.body,responseObj)
 	.then(function(result){
+		console.log(result);
 		res.json(result).end();
 	})
 	

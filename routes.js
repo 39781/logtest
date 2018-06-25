@@ -79,7 +79,7 @@ var loginSucess = function(responseObj){
 			var items = [
 				{
 				  "optionInfo": {
-					"key": "HR Self Service"
+					"key": "HR"
 				  },
 				  "title": "HR Self Service",
 				  "description": "for Leave management, Employee Search",
@@ -87,7 +87,7 @@ var loginSucess = function(responseObj){
 				},
 				{
 				  "optionInfo": {
-					"key": "IT Self Service"
+					"key": "IT"
 				  },
 				  "title": "IT Self Service",
 				  "description": "For : Account recovery , Help desk",

@@ -17,6 +17,7 @@ router.post('/botHandler',function(req, res){
 		case 'input.welcome':func = welcome;break;
 		case 'input.verifyOtp': func = verifyOtp;break;
 		case 'input.unknown':func = defaultFallBack;break;
+		case 'input.employee_search': func =  employeeSearch2;break;
 	}
 	func(req.body,responseObj)
 	.then(function(result){
@@ -62,6 +63,12 @@ var welcome = function(req, responseObj){
 				"title": "Login",
 				"openUrlAction": {
 				  "url": "https://logintests.herokuapp.com/login.html?convId="+req.originalDetectIntentRequest.payload.conversation.conversationId
+				}
+			  },
+			  {
+				"title": "Art Recovery",
+				"openUrlAction": {
+				  "url": "https://logintests.herokuapp.com/resetPassword.html?convId="+req.originalDetectIntentRequest.payload.conversation.conversationId
 				}
 			  }
 			]
@@ -208,6 +215,47 @@ var defaultFallBack = function(req, response){
 				}
 			}
 		resolve(response);		
+	});
+}
+
+var employeeSearch1 = function(req, response){
+	return new Promise(function(resolve,reject){
+		var empSearchAPI = config.empSearchAPI;
+		var inputText = req.queryResult.queryText;
+		if(isNaN(inputText)){
+			empSearchAPI = empSearchAPI+'name='+inputText;
+		}else{
+			empSearchAPI = empSearchAPI+'id='+inputText;
+		}
+		request(empSearchAPI,function(error,response,body){
+			if(error){
+				resolve(employeeInfo({status:'error'}));
+			}else{
+				resolve(employeeInfo(body));
+			}
+		});
+	});
+}
+var employeeSearch2 = function(req, response){
+	return new Promise(function(resolve,reject){
+		var empSearchAPI = config.empSearchAPI;
+		var inputText = req.queryResult.queryText;	
+		switch(inputText.toLowerCase()){
+			case '13328':case 'ABHISHEK  ARRAWATIA':resolve(employeeInfo({"employeeid":"13328","employeedetails":[{"employeename":"ABHISHEK  ARRAWATIA","department":"Competency Dev-Java","dateofjoining":"07-08-2006","officialmail":"13328_#Test@hexaware.com","location":"US","mobileno":"18572722326","officialphone":"8804"}]},response));break;
+			case '15540':case 'ABHISHEK  MISHRA':resolve(employeeInfo({"employeeid":"15540","employeedetails":[{"employeename":"ABHISHEK  MISHRA","department":"Competency Dev-BIBA","dateofjoining":"17-09-2007","officialmail":"15540_#Test@hexaware.com","location":"US","mobileno":"9987772731","officialphone":"22045"}]},response));break;
+			default:resolve(employeeInfo({status:'error'}));break;
+		}
+	});
+}
+var employeeInfo = function(empObj,response){
+	if(typeof(empObj.status=='undefined'){
+		var empData = "Employee Id: "+empObj.employeeid+"\n\rEmployee Name : "+empObj.employeedetails[0].employeename+"\n\rMobile no : "+empObj.employeedetails[0].mobileno;		
+	}else{
+		var empData = "Employee details Not Found";
+	}
+	simpleResponse(response, empData);
+	.then(function(result){
+		return result;'
 	});
 }
 module.exports = router;

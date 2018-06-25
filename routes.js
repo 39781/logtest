@@ -148,7 +148,7 @@ var listItem = function (response,text, items){
 	return new Promise(function(resolve,reject){		
 		console.log(' list item');
 			response.payload.google.systemIntent = {
-				"intent": "actions.intent.OPTION",
+				"intent": "actions.intent.TEXt",
 				"data": {
 					"@type": "type.googleapis.com/google.actions.v2.OptionValueSpec",
 					"listSelect": {

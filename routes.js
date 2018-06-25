@@ -52,21 +52,23 @@ router.post('/validateUser',function(req, res){
 	}		
 });
 var welcome = function(req, responseObj){
-	simpleResponse(responseObj, "Hi I'm Hema !. I can help you to manage your leaves,search an employee, account recovery and create or track your service tickets. Please login to begin.")
-	.then(function(result){
-		var buttons = [
-		  {
-			"title": "Login",
-			"openUrlAction": {
-			  "url": "https://logintests.herokuapp.com/login.html?convId = "+req.originalDetectIntentRequest.payload.conversation.conversationId
-			}
-		  }
-		]
-		return basicCard(result, buttons);
-	})
-	.then(function(result){
-		return(result);
-	})
+	return new Promise(function(resolve,reject){
+		simpleResponse(responseObj, "Hi I'm Hema !. I can help you to manage your leaves,search an employee, account recovery and create or track your service tickets. Please login to begin.")
+		.then(function(result){
+			var buttons = [
+			  {
+				"title": "Login",
+				"openUrlAction": {
+				  "url": "https://logintests.herokuapp.com/login.html?convId = "+req.originalDetectIntentRequest.payload.conversation.conversationId
+				}
+			  }
+			]
+			return basicCard(result, buttons);
+		})
+		.then(function(result){
+			resolve(result);		
+		})
+	});
 }
 
 var loginSucess = function(){
@@ -82,19 +84,21 @@ var loginSucess = function(){
 };
 
 var verifyOtp = function(req){
-	if(Otps[req.originalDetectIntentRequest.payload.conversation.conversationId]==req.body.queryResult.parameters.otp){		
-		loginSucess()
-		.then(function(result){
-			res.status(200);
-			res.json(result).end();
-		})		
-	}else{
-		simpleResponse(responseObj, "Invalid OTP : please enter valid password")
-		.then(function(result){
-			res.status(200);
-			res.json(result).end();	
-		});		
-	}
+	return new Promise(function(resolve,reject){
+		if(Otps[req.originalDetectIntentRequest.payload.conversation.conversationId]==req.body.queryResult.parameters.otp){		
+			loginSucess()
+			.then(function(result){
+				res.status(200);
+				res.json(result).end();
+			})		
+		}else{
+			simpleResponse(responseObj, "Invalid OTP : please enter valid password")
+			.then(function(result){
+				res.status(200);
+				res.json(result).end();	
+			});		
+		}
+	});
 }
 var listItem = function (response, responseText){
 	return new Promise(function(resolve,reject){

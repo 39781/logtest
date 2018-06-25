@@ -13,6 +13,8 @@ router.get('/close',function(req,res){
 router.post('/botHandler',function(req, res){		
 	var responseObj = JSON.parse(JSON.stringify(config.responseObj));
 	var actionName = req.body.queryResult.action;
+	
+	console.log(actionName);
 	switch(actionName){
 		case 'input.welcome':func = welcome;break;
 		case 'input.verifyOtp': func = verifyOtp;break;
@@ -26,9 +28,7 @@ router.post('/botHandler',function(req, res){
 		res.json(result).end();
 	})
 	
-	/*
 	
-	*/
 	
 });	
 

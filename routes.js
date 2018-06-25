@@ -74,8 +74,10 @@ var welcome = function(req, responseObj){
 
 var loginSucess = function(responseObj){
 	return new Promise(function(resolve,reject){
+		console.log('login success');
 		simpleResponse(responseObj, "Login success")
 		.then(function(result){	
+			console.log('simple response');
 			var items = [
 				{
 				  "optionInfo": {
@@ -116,6 +118,7 @@ var loginSucess = function(responseObj){
 					title:"Meeting Self Service"
 				}
 			];							
+			console.log('sugge');
 			return suggestions(result, chips);
 		})
 		.then(function(result){	
@@ -147,6 +150,7 @@ var verifyOtp = function(req,responseObj){
 }
 var listItem = function (response,text, items){
 	return new Promise(function(resolve,reject){		
+		console.log(' list item');
 			response.payload.google.systemIntent = {
 				"intent": "actions.intent.OPTION",
 				"data": {
@@ -186,6 +190,7 @@ var basicCard = function(response,text, buttons){
 }
 
 var suggestions = function(response, chips){
+	console.log('suggestions');
 	return new Promise(function(resolve,reject){		
 		response.payload.google.suggestions = chips;		
 	});

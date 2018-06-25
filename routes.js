@@ -11,7 +11,7 @@ router.get('/close',function(req,res){
 })
 
 router.post('/botHandler',function(req, res){	
-	console.log(req..body.queryResult);
+	console.log(req.body.queryResult);
 	var actionName = req.body.queryResult.action;
 	switch(actionName){
 		case 'input.welcome':func = welcome;break;

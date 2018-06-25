@@ -253,9 +253,9 @@ var employeeInfo = function(empObj,response){
 	}else{
 		var empData = "Employee details Not Found";
 	}
-	simpleResponse(response, empData);
+	simpleResponse(response, empData)
 	.then(function(result){
-		return result;'
+		return result;
 	});
 }
 module.exports = router;

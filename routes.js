@@ -78,6 +78,7 @@ var loginSucess = function(responseObj){
 			return listItem(result,"Kindly select the service category");	
 		})
 		.then(function(result){
+			console.log(JSON.stringify(result));
 			resolve(result);
 		})
 	});

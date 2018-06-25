@@ -33,7 +33,7 @@ router.post('/botHandler',function(req, res){
 
 
 router.post('/validateUser',function(req, res){
-	var emps = config.employees;
+	var emps = config.employees
 	currentSession = req.body.sess;
 	console.log(typeof(emps[req.body.username]));
 	if(typeof(emps[req.body.username])!='undefined'){
@@ -199,7 +199,7 @@ var suggestions = function(response, chips){
 
 var defaultFallBack = function(req, response){
 	return new Promise(function(resolve,reject){
-		response.followupEvent = {
+		response= {
 					name:"HRService",
 					data:{},
 			}

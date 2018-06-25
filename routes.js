@@ -192,7 +192,7 @@ var basicCard = function(response,text, buttons){
 var suggestions = function(response, chips){
 	console.log('suggestions');
 	return new Promise(function(resolve,reject){		
-		response.payload.google.suggestions = chips;		
+		response.payload.google.richResponse.suggestions = chips;		
 		console.log(JSON.stringify(response));
 		resolve(response);
 	});	

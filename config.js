@@ -6,9 +6,10 @@ module.exports = {
 		"google": {
 		  "expectUserResponse": true,
 		  "richResponse": {
-			"items": []
+			"items": [],
+			"suggestions":[]
 		  },
-		  "suggestions":[]
+		  
 		}
 	  }
 	},

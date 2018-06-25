@@ -85,6 +85,9 @@ var loginSucess = function(responseObj){
 
 var verifyOtp = function(req,responseObj){
 	return new Promise(function(resolve,reject){
+		console.log(req.originalDetectIntentRequest.payload.conversation.conversationId);
+		console.log(JSON.stringify(Otps));
+		console.log(req.queryResult.parameters.otp);
 		if(Otps[req.originalDetectIntentRequest.payload.conversation.conversationId]==req.queryResult.parameters.otp){		
 			loginSucess(responseObj)
 			.then(function(result){				

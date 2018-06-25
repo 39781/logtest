@@ -87,15 +87,13 @@ var verifyOtp = function(req,responseObj){
 	return new Promise(function(resolve,reject){
 		if(Otps[req.originalDetectIntentRequest.payload.conversation.conversationId]==req.queryResult.parameters.otp){		
 			loginSucess(responseObj)
-			.then(function(result){
-				res.status(200);
-				res.json(result).end();
+			.then(function(result){				
+				resolve(result);
 			})		
 		}else{
 			simpleResponse(responseObj, "Invalid OTP : please enter valid password")
 			.then(function(result){
-				res.status(200);
-				res.json(result).end();	
+				resolve(result);				
 			});		
 		}
 	});

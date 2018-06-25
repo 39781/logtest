@@ -248,7 +248,7 @@ var employeeSearch2 = function(req, response){
 	});
 }
 var employeeInfo = function(empObj,response){
-	if(typeof(empObj.status=='undefined'){
+	if(typeof(empObj.status)=='undefined'){
 		var empData = "Employee Id: "+empObj.employeeid+"\n\rEmployee Name : "+empObj.employeedetails[0].employeename+"\n\rMobile no : "+empObj.employeedetails[0].mobileno;		
 	}else{
 		var empData = "Employee details Not Found";

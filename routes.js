@@ -71,11 +71,11 @@ var welcome = function(req, responseObj){
 	});
 }
 
-var loginSucess = function(){
+var loginSucess = function(responseObj){
 	return new Promise(function(resolve,reject){
 		simpleResponse(responseObj, "Login success")
 		.then(function(result){		
-			return listItem(result);	
+			return listItem(result,"Kindly select the service category");	
 		})
 		.then(function(result){
 			resolve(result);
@@ -83,10 +83,10 @@ var loginSucess = function(){
 	});
 };
 
-var verifyOtp = function(req){
+var verifyOtp = function(req,responseObj){
 	return new Promise(function(resolve,reject){
 		if(Otps[req.originalDetectIntentRequest.payload.conversation.conversationId]==req.queryResult.parameters.otp){		
-			loginSucess()
+			loginSucess(responseObj)
 			.then(function(result){
 				res.status(200);
 				res.json(result).end();
@@ -104,7 +104,7 @@ var listItem = function (response, responseText){
 	return new Promise(function(resolve,reject){
 		response.payload.google.richResponse.items.push({
 		"listSelect": {
-			  "title": "Kindly select the service category",
+			  "title": responseText,
 			  "items": [
 				{
 				  "info": {

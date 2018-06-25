@@ -77,7 +77,7 @@ var loginSucess = function(){
 			resolve(result);
 		})
 	});
-});
+};
 
 var verifyOtp = function(req){
 	if(Otps[req.originalDetectIntentRequest.payload.conversation.conversationId]==req.body.queryResult.parameters.otp){		
@@ -87,7 +87,7 @@ var verifyOtp = function(req){
 			res.json(result).end();
 		})		
 	}else{
-		simpleResponse("Invalid OTP : please enter valid password");
+		simpleResponse("Invalid OTP : please enter valid password")
 		.then(function(result){
 			res.status(200);
 			res.json(result).end();	
@@ -96,7 +96,7 @@ var verifyOtp = function(req){
 }
 var listItem = function (response, responseText){
 	return new Promise(function(resolve,reject){
-		response.payload.google.richResponse.items.push(
+		response.payload.google.richResponse.items.push({
 		"listSelect": {
 			  "title": "Kindly select the service category",
 			  "items": [
@@ -118,7 +118,7 @@ var listItem = function (response, responseText){
 				}
 			  ]
 			}
-		);
+		});
 		resolve(response);
 	});
 }

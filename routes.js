@@ -12,12 +12,13 @@ router.get('/close',function(req,res){
 
 router.post('/botHandler',function(req, res){	
 	console.log(req.body.queryResult);
+	var responseObj = JSON.parse(JSON.stringify(config.responseObj));
 	var actionName = req.body.queryResult.action;
 	switch(actionName){
 		case 'input.welcome':func = welcome;break;
 		case 'input.verifyOtp': func = verifyOtp;break;
 	}
-	func(req)
+	func(req,responseObj)
 	.then(function(result){
 		res.json(result).end();
 	})
@@ -50,8 +51,8 @@ router.post('/validateUser',function(req, res){
 		res.json({status:false}).end();
 	}		
 });
-var welcome = function(req){
-	simpleResponse("Hi I'm Hema !. I can help you to manage your leaves,search an employee, account recovery and create or track your service tickets. Please login to begin.")
+var welcome = function(req, responseObj){
+	simpleResponse(responseObj, "Hi I'm Hema !. I can help you to manage your leaves,search an employee, account recovery and create or track your service tickets. Please login to begin.")
 	.then(function(result){
 		var buttons = [
 		  {
@@ -70,7 +71,7 @@ var welcome = function(req){
 
 var loginSucess = function(){
 	return new Promise(function(resolve,reject){
-		simpleResponse("Login success")
+		simpleResponse(responseObj, "Login success")
 		.then(function(result){		
 			return listItem(result);	
 		})
@@ -88,7 +89,7 @@ var verifyOtp = function(req){
 			res.json(result).end();
 		})		
 	}else{
-		simpleResponse("Invalid OTP : please enter valid password")
+		simpleResponse(responseObj, "Invalid OTP : please enter valid password")
 		.then(function(result){
 			res.status(200);
 			res.json(result).end();	

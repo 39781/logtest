@@ -169,7 +169,7 @@ function validateLogin() {
 	xmlhttp.onreadystatechange = function() {
 		if (this.readyState == 4){
 			if(this.status == 200) {
-				document.getElementById('containerBody').innerHTML = '<label for="uname"><b>OTP Sent</b></label><span>Password sent to your mobile, please enter OTP in google assitant in the format of OTP - number</span><button type="button" onClick="window.close()">continue</button>;			
+				document.getElementById('containerBody').innerHTML = '<label for="uname"><b>OTP Sent</b></label><span>Password sent to your mobile, please enter OTP in google assitant in the format of OTP - number</span><button type="button" onClick="window.close()">continue</button>';			
 				//alert('');
 				//document.getElementById("close").click();
 			}else if(this.status == 400){

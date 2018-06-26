@@ -212,13 +212,14 @@ var defaultFallBack = function(req, response){
 		var evnt = '';
 		if(req.queryResult.queryText.indexOf('HR')>=0){
 			evnt = 'HRService';
-		}else if(req.queryResult.queryText.indexOf('HR')>=0){
+		}else if(req.queryResult.queryText.indexOf('IT')>=0){
 			evnt = 'ITService';
-		}else if(req.queryResult.queryText.indexOf('HR')>=0){
+		}else if(req.queryResult.queryText.indexOf('Meeting')>=0){
 			evnt = 'MeetingService'
 		}else{
 			evnt = 'fallback'
 		}
+		console.log(req.queryResult.queryText,evnt);
 		response= {
 				"fulfillmentText": '',
 				"followupEventInput":{

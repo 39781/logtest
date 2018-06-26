@@ -210,11 +210,12 @@ var suggestions = function(response, chips){
 var defaultFallBack = function(req, response){
 	return new Promise(function(resolve,reject){
 		var evnt = '';
-		if(req.queryResult.queryText.indexOf('HR')>=0){
+		var txt = req.originalDetectIntentRequest.payload.inputs[0].rawInputs[0].query;
+		if(txt.indexOf('HR')>=0){
 			evnt = 'HRService';
-		}else if(req.queryResult.queryText.indexOf('IT')>=0){
+		}else if(txt.indexOf('IT')>=0){
 			evnt = 'ITService';
-		}else if(req.queryResult.queryText.indexOf('Meeting')>=0){
+		}else if(txt.indexOf('Meeting')>=0){
 			evnt = 'MeetingService'
 		}else{
 			evnt = 'fallback'

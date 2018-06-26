@@ -206,10 +206,20 @@ var suggestions = function(response, chips){
 
 var defaultFallBack = function(req, response){
 	return new Promise(function(resolve,reject){
+		var evnt = '';
+		if(req.queryResult.queryText.indexOf('HR')>=0){
+			evnt = 'HRService';
+		}else if(req.queryResult.queryText.indexOf('HR')>=0){
+			evnt = 'ITService';
+		}else if(req.queryResult.queryText.indexOf('HR')>=0){
+			evnt = 'MeetingService'
+		}else{
+			evnt = 'fallback'
+		}
 		response= {
 				"fulfillmentText": '',
 				"followupEventInput":{
-					"name":"HRService",
+					"name":evnt,
 					"parameters":{  						
 					}
 				}

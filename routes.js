@@ -61,6 +61,7 @@ var welcome = function(req, responseObj){
 				"followupEventInput":{
 					"name":"mainMenu",
 					"parameters":{ 
+						text:"Hi I'm Hema !. I can help you to manage your leaves,search an employee, account recovery and create or track your service tickets. Please login to begin.",
 						session:req.originalDetectIntentRequest.payload.conversation.conversationId
 					}
 				}
@@ -271,11 +272,21 @@ var employeeInfo = function(empObj,response){
 	}else{
 		var empData = "Employee details Not Found";
 	}
-	return simpleResponse(response, empData)
+	return {
+				"fulfillmentText": '',
+				"followupEventInput":{
+					"name":"mainMenu",
+					"parameters":{ 
+						text:empData,
+						session:req.originalDetectIntentRequest.payload.conversation.conversationId
+					}
+				}
+			}
+	/*return simpleResponse(response, empData)
 	.then(function(result){
 		console.log(JSON.stringify(result));
 		return result;
-	});
+	});*/
 }
 module.exports = router;
 

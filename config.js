@@ -10,7 +10,7 @@ module.exports = {
 			"items": [],
 			"suggestions":[]
 		  },
-		  systemIntent:{
+		  "systemIntent":{
 			  "intent": "actions.intent.OPTION",
 				"data": {
 					"@type": "type.googleapis.com/google.actions.v2.OptionValueSpec",
@@ -39,7 +39,7 @@ module.exports = {
               "openUrlAction": {
                 "url": "https://optionTwoUrl"
               }
-            },
+            }
           ]
         }
 				}	              

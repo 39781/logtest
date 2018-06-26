@@ -93,7 +93,7 @@ var welcome = function(req, responseObj){
 var loginSucess = function(responseObj){
 	return new Promise(function(resolve,reject){
 		console.log('login success');
-		simpleResponse(responseObj, "Login success")
+		simpleResponse(responseObj, "Congratulations! You have been successfully login. Please select an option from below to continue")
 		.then(function(result){	
 			console.log('simple response');
 			var items = [

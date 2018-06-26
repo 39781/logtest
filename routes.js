@@ -311,7 +311,7 @@ var employeeInfo = function(empObj,response){
 		})		
 		.then(function(result){				
 			console.log('leving log sucess');
-			resolve(result);
+			return result;
 		})
 	/*return simpleResponse(response, empData)
 	.then(function(result){

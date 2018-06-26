@@ -18,8 +18,8 @@ module.exports = {
 		"39754":{ph:"9626649195",name:"V+Hari+Krishna%2c"}
 	},
 	
-	"smsApi":"http://smsapi.24x7sms.com/api_2.0/SendSMS.aspx?APIKEY=ZY2nHm2RiIC&MobileNo=phonenumber&SenderID=TESTIN&Message=Dear+name+the+OTP+to+reset+your+password+is+Otpnumber%2c+valid+only+for+the+next+30++minutes.&ServiceName=TEMPLATE_BASED" 
+	"smsApi":"http://smsapi.24x7sms.com/api_2.0/SendSMS.aspx?APIKEY=ZY2nHm2RiIC&MobileNo=phonenumber&SenderID=TESTIN&Message=Dear name, Your OTP for login verification is Otpnumber, this OTP is valid for only 30 minutes.&ServiceName=TEMPLATE_BASED" 
+	
 }
-
 
 

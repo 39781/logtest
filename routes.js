@@ -59,7 +59,7 @@ var welcome = function(req, responseObj){
 		responseObj= {
 				"fulfillmentText": '',
 				"followupEventInput":{
-					"name":mainMenu,
+					"name":"mainMenu",
 					"parameters":{ 
 						session:req.originalDetectIntentRequest.payload.conversation.conversationId
 					}

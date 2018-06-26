@@ -104,7 +104,7 @@ var loginSucess = function(responseObj){
 						"HR Self Service"
 					]
 				  },
-				  "title": "HR Self Service",
+				  "title": "HR Services",
 				  "description": "for Leave management, Employee Search",				  
 				},
 				{
@@ -114,14 +114,14 @@ var loginSucess = function(responseObj){
 						"IT Self Service"
 					]
 				  },
-				  "title": "IT Self Service",
+				  "title": "IT Help Desk",
 				  "description": "For : Account recovery , Help desk",				  
 				},
 				{
 				  "optionInfo": {
 					"key": "Meeting",
 					"synonyms": [
-						"Meeting Self Service"
+						"Meeting scheduler"
 					]
 				  },
 				  "title": "Meeting Self Service",
@@ -283,7 +283,7 @@ var gotoMenu = function(req, response){
 						"HR Self Service"
 					]
 				  },
-				  "title": "HR Self Service",
+				  "title": "HR Services",
 				  "description": "for Leave management, Employee Search",				  
 				},
 				{
@@ -293,7 +293,7 @@ var gotoMenu = function(req, response){
 						"IT Self Service"
 					]
 				  },
-				  "title": "IT Self Service",
+				  "title": "IT Help Desk",
 				  "description": "For : Account recovery , Help desk",				  
 				},
 				{
@@ -303,7 +303,7 @@ var gotoMenu = function(req, response){
 						"Meeting Self Service"
 					]
 				  },
-				  "title": "Meeting Self Service",
+				  "title": "Meeting scheduler",
 				  "description": "For : creating create, cancel and reschedule meeting",				  
 				}
 			  ];

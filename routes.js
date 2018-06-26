@@ -56,7 +56,17 @@ router.post('/validateUser',function(req, res){
 });
 var welcome = function(req, responseObj){
 	return new Promise(function(resolve,reject){
-		simpleResponse(responseObj, "Hi I'm Hema !. I can help you to manage your leaves,search an employee, account recovery and create or track your service tickets. Please login to begin.")
+		responseObj= {
+				"fulfillmentText": '',
+				"followupEventInput":{
+					"name":mainMenu,
+					"parameters":{ 
+						session:req.originalDetectIntentRequest.payload.conversation.conversationId
+					}
+				}
+			}
+			resolve(responseObj):
+		/*simpleResponse(responseObj, "Hi I'm Hema !. I can help you to manage your leaves,search an employee, account recovery and create or track your service tickets. Please login to begin.")
 		.then(function(result){
 			var buttons = [
 			  {
@@ -64,13 +74,7 @@ var welcome = function(req, responseObj){
 				"openUrlAction": {
 				  "url": "https://logintests.herokuapp.com/login.html?convId="+req.originalDetectIntentRequest.payload.conversation.conversationId
 				}
-			  },
-			  {
-				"title": "Art Recovery",
-				"openUrlAction": {
-				  "url": "https://logintests.herokuapp.com/resetPassword.html?convId="+req.originalDetectIntentRequest.payload.conversation.conversationId
-				}
-			  }
+			  }			  
 			]
 			return basicCard(result,"Please login to Help you", buttons);
 		})
@@ -80,7 +84,7 @@ var welcome = function(req, responseObj){
 		})
 		.then(function(result){
 			resolve(result);		
-		})
+		})*/
 	});
 }
 

@@ -74,6 +74,10 @@ var welcome = function(req, responseObj){
 			]
 			return basicCard(result,"Please login to Help you", buttons);
 		})
+		.then(function(result){			
+			var chips = [{title:"Account Recovery"}];										
+			return suggestions(result,chips);
+		})
 		.then(function(result){
 			resolve(result);		
 		})
@@ -119,12 +123,7 @@ var loginSucess = function(responseObj){
 				}
 			  ];
 			return listItem(result, "Kindly select the service category",items);	
-		})
-		.then(function(result){		
-			var chips = [];							
-			console.log('sugge');
-			return suggestions(result, chips);
-		})
+		})		
 		.then(function(result){	
 			//console.log(JSON.stringify(result));
 				console.log('leving log sucess');

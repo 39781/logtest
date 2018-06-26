@@ -9,41 +9,7 @@ module.exports = {
 		  "richResponse": {
 			"items": [],
 			"suggestions":[]
-		  },
-		  "systemIntent":{
-			  "intent": "actions.intent.OPTION",
-				"data": {
-					"@type": "type.googleapis.com/google.actions.v2.OptionValueSpec",
-					"carouselBrowse": {
-          "items": [
-            {
-              "title": "Option one title",
-              "description": "Option one description",
-              "footer": "Option one footer",
-              "image": {
-                "url": "http://imageOneUrl.com",
-                "accessibilityText": "Image description for screen readers"
-              },
-              "openUrlAction": {
-                "url": "https://optionOneUrl"
-              }
-            },
-            {
-              "title": "Option two title",
-              "description": "Option two description",
-              "footer": "Option two footer",
-              "image": {
-                "url": "http://imageTwoUrl.com",
-                "accessibilityText": "Image description for screen readers"
-              },
-              "openUrlAction": {
-                "url": "https://optionTwoUrl"
-              }
-            }
-          ]
-        }
-				}	              
-		  }
+		  },		  
 		}
 	  }
 	},

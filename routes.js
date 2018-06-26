@@ -265,7 +265,7 @@ var employeeSearch2 = function(req, response){
 	});
 }
 var employeeInfo = function(empObj,response){
-	console.log('employee info');
+	console.log('employee info', JSON.stringify(empObj),typeof(empObj.status));
 	if(typeof(empObj.status)=='undefined'){
 		var empData = "Employee Id: "+empObj.employeeid+"\n\rEmployee Name : "+empObj.employeedetails[0].employeename+"\n\rMobile no : "+empObj.employeedetails[0].mobileno;		
 	}else{

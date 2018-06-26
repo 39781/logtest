@@ -65,7 +65,7 @@ var welcome = function(req, responseObj){
 					}
 				}
 			}
-			resolve(responseObj):
+			resolve(responseObj);
 		/*simpleResponse(responseObj, "Hi I'm Hema !. I can help you to manage your leaves,search an employee, account recovery and create or track your service tickets. Please login to begin.")
 		.then(function(result){
 			var buttons = [

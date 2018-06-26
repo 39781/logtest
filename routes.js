@@ -272,16 +272,47 @@ var employeeInfo = function(empObj,response){
 	}else{
 		var empData = "Employee details Not Found";
 	}
-	return {
-				"fulfillmentText": '',
-				"followupEventInput":{
-					"name":"mainMenu",
-					"parameters":{ 
-						text:empData,
-						session:empObj.sess
-					}
+	return simpleResponse(responseObj, empData)
+		.then(function(result){	
+			console.log('simple response');
+			var items = [
+				{
+				  "optionInfo": {
+					"key": "HR",
+					"synonyms": [
+						"HR Self Service"
+					]
+				  },
+				  "title": "HR Self Service",
+				  "description": "for Leave management, Employee Search",				  
+				},
+				{
+				  "optionInfo": {
+					"key": "IT",
+					"synonyms": [
+						"IT Self Service"
+					]
+				  },
+				  "title": "IT Self Service",
+				  "description": "For : Account recovery , Help desk",				  
+				},
+				{
+				  "optionInfo": {
+					"key": "Meeting",
+					"synonyms": [
+						"Meeting Self Service"
+					]
+				  },
+				  "title": "Meeting Self Service",
+				  "description": "For : creating create, cancel and reschedule meeting",				  
 				}
-			}
+			  ];
+			return listItem(result, "Kindly select the service category",items);	
+		})		
+		.then(function(result){				
+			console.log('leving log sucess');
+			resolve(result);
+		})
 	/*return simpleResponse(response, empData)
 	.then(function(result){
 		console.log(JSON.stringify(result));

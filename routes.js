@@ -252,9 +252,11 @@ var employeeSearch1 = function(req, response){
 	});
 }
 var employeeSearch2 = function(req, response){
+	console.log('employeeSearch2');
 	return new Promise(function(resolve,reject){
 		var empSearchAPI = config.empSearchAPI;
 		var inputText = req.queryResult.queryText;	
+		console.log(JSON.stringify(req));
 		switch(inputText.toLowerCase()){
 			case '13328':case 'ABHISHEK  ARRAWATIA':resolve(employeeInfo({"employeeid":"13328","employeedetails":[{"employeename":"ABHISHEK  ARRAWATIA","department":"Competency Dev-Java","dateofjoining":"07-08-2006","officialmail":"13328_#Test@hexaware.com","location":"US","mobileno":"18572722326","officialphone":"8804"}]},response));break;
 			case '15540':case 'ABHISHEK  MISHRA':resolve(employeeInfo({"employeeid":"15540","employeedetails":[{"employeename":"ABHISHEK  MISHRA","department":"Competency Dev-BIBA","dateofjoining":"17-09-2007","officialmail":"15540_#Test@hexaware.com","location":"US","mobileno":"9987772731","officialphone":"22045"}]},response));break;

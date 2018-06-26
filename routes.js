@@ -246,8 +246,9 @@ var employeeSearch1 = function(req, response){
 		}
 		request(empSearchAPI,function(error,response,body){
 			if(error){
-				resolve(employeeInfo({status:'error'},response));
+				resolve(employeeInfo({status:'error',sess:req.originalDetectIntentRequest.payload.conversation.conversationId},response));
 			}else{
+				body.sess=req.originalDetectIntentRequest.payload.conversation.conversationId;
 				resolve(employeeInfo(body,response));
 			}
 		});

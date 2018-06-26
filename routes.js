@@ -219,7 +219,7 @@ var defaultFallBack = function(req, response){
 		}else{
 			evnt = 'fallback'
 		}
-		console.log(req.queryResult.queryText,evnt);
+		console.log(JSON.stringify(req),req.queryResult.queryText,evnt);
 		response= {
 				"fulfillmentText": '',
 				"followupEventInput":{

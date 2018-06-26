@@ -4,11 +4,39 @@ module.exports = {
 	dialogFlowAPI:"https://api.api.ai/v1/query?v=20150910",
 	responseObj: {
 	  "payload": {
-		"google": {
-			
+		"google": {			
 		  "expectUserResponse": true,
 		  "richResponse": {
-			"items": [],
+			"items": [{
+        "carouselBrowse": {
+          "items": [
+            {
+              "title": "Option one title",
+              "description": "Option one description",
+              "footer": "Option one footer",
+              "image": {
+                "url": "http://imageOneUrl.com",
+                "accessibilityText": "Image description for screen readers"
+              },
+              "openUrlAction": {
+                "url": "https://optionOneUrl"
+              }
+            },
+            {
+              "title": "Option two title",
+              "description": "Option two description",
+              "footer": "Option two footer",
+              "image": {
+                "url": "http://imageTwoUrl.com",
+                "accessibilityText": "Image description for screen readers"
+              },
+              "openUrlAction": {
+                "url": "https://optionTwoUrl"
+              }
+            },
+          ]
+        }
+      }],
 			"suggestions":[]
 		  },
 		  

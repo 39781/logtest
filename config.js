@@ -7,8 +7,14 @@ module.exports = {
 		"google": {			
 		  "expectUserResponse": true,
 		  "richResponse": {
-			"items": [{
-        "carouselBrowse": {
+			"items": [],
+			"suggestions":[]
+		  },
+		  systemIntent:{
+			  "intent": "actions.intent.OPTION",
+				"data": {
+					"@type": "type.googleapis.com/google.actions.v2.OptionValueSpec",
+					"carouselBrowse": {
           "items": [
             {
               "title": "Option one title",
@@ -36,10 +42,8 @@ module.exports = {
             },
           ]
         }
-      }],
-			"suggestions":[]
-		  },
-		  
+				}	              
+		  }
 		}
 	  }
 	},

@@ -16,6 +16,7 @@ router.post('/botHandler',function(req, res){
 	
 	console.log(actionName);
 	switch(actionName){
+		case 'input.gotoMenu':func = gotoMenu;break;
 		case 'input.welcome':func = welcome;break;
 		case 'input.verifyOtp': func = verifyOtp;break;
 		case 'input.unknown':func = defaultFallBack;break;
@@ -263,6 +264,51 @@ var employeeSearch2 = function(req, response){
 			case '15540':case 'ABHISHEK  MISHRA':resolve(employeeInfo({"employeeid":"15540","employeedetails":[{"employeename":"ABHISHEK  MISHRA","department":"Competency Dev-BIBA","dateofjoining":"17-09-2007","officialmail":"15540_#Test@hexaware.com","location":"US","mobileno":"9987772731","officialphone":"22045"}],sess:req.originalDetectIntentRequest.payload.conversation.conversationId},response));break;
 			default:resolve(employeeInfo({status:'error',sess:req.originalDetectIntentRequest.payload.conversation.conversationId},response));break;
 		}
+	});
+}
+var gotoMenu = function(req, response){
+	return new Promise(function(resolve,reject){
+	simpleResponse(response, 'Main Menu')
+		.then(function(result){	
+			console.log('simple response');
+			var items = [
+				{
+				  "optionInfo": {
+					"key": "HR",
+					"synonyms": [
+						"HR Self Service"
+					]
+				  },
+				  "title": "HR Self Service",
+				  "description": "for Leave management, Employee Search",				  
+				},
+				{
+				  "optionInfo": {
+					"key": "IT",
+					"synonyms": [
+						"IT Self Service"
+					]
+				  },
+				  "title": "IT Self Service",
+				  "description": "For : Account recovery , Help desk",				  
+				},
+				{
+				  "optionInfo": {
+					"key": "Meeting",
+					"synonyms": [
+						"Meeting Self Service"
+					]
+				  },
+				  "title": "Meeting Self Service",
+				  "description": "For : creating create, cancel and reschedule meeting",				  
+				}
+			  ];
+			return listItem(result, "Kindly select the service category",items);	
+		})		
+		.then(function(result){				
+			console.log('leving log sucess');
+			resolve(result);
+		}) 
 	});
 }
 var employeeInfo = function(empObj,response){

@@ -271,7 +271,7 @@ var employeeInfo = function(empObj,response){
 	}else{
 		var empData = "Employee details Not Found";
 	}
-	simpleResponse(response, empData)
+	return simpleResponse(response, empData)
 	.then(function(result){
 		console.log(JSON.stringify(result));
 		return result;

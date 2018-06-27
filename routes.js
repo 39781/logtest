@@ -323,7 +323,7 @@ var listItem = function (response,text, items){
 				"intent": "actions.intent.OPTION",
 				"data": {
 					"@type": "type.googleapis.com/google.actions.v2.OptionValueSpec",
-					"listSelect": {
+					"carouselSelect": {
 					  "title": text,
 					  "items": items
 					}

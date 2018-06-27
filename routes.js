@@ -524,13 +524,13 @@ var employeeInfo = function(empObj,response){
 	}
 	return simpleResponse(response, "Employee Details")
 		.then(function(result){
-			response.payload.google.richResponse.items.push({
+			response.payload.google.richResponse.items.push(
 				{"basicCard": {
 					"formattedText": 'Mobile no. : '+empObj.employeedetails[0].mobileno,
-					"title":'Name : 'empObj.employeedetails[0].employeename,							
-					"sub-title":'Emp Id : 'empObj.employeeid,					
+					"title":'Name : '+empObj.employeedetails[0].employeename,							
+					"sub-title":'Emp Id : '+empObj.employeeid,					
 					"image": {},				
-			});
+				}});
 			console.log('simple response');
 			var items = [
 				{

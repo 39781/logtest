@@ -4,7 +4,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {font-family: Arial, Helvetica, sans-serif;}
-
 /* Full-width input fields */
 input[type=text], input[type=password] {
     width: 100%;
@@ -14,7 +13,6 @@ input[type=text], input[type=password] {
     border: 1px solid #ccc;
     box-sizing: border-box;
 }
-
 /* Set a style for all buttons */
 button {
     background-color: #4CAF50;
@@ -25,40 +23,33 @@ button {
     cursor: pointer;
     width: 100%;
 }
-
 button:hover {
     opacity: 0.8;
 }
-
 /* Extra styles for the cancel button */
 .cancelbtn {
     width: auto;
     padding: 10px 18px;
     background-color: #f44336;
 }
-
 /* Center the image and position the close button */
 .imgcontainer {
     text-align: center;
     margin: 24px 0 12px 0;
     position: relative;
 }
-
 img.avatar {
     width: 5%;
 	height:5%;
     border-radius: 50%;
 }
-
 .container {
     padding: 16px;
 }
-
 span.psw {
     float: right;
     padding-top: 16px;
 }
-
 /* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */
@@ -73,7 +64,6 @@ span.psw {
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
     padding-top: 60px;
 }
-
 /* Modal Content/Box */
 .modal-content {
     background-color: #fefefe;
@@ -81,7 +71,6 @@ span.psw {
     border: 1px solid #888;
     width: 80%; /* Could be more or less, depending on screen size */
 }
-
 /* The Close Button (x) */
 .close {
     position: absolute;
@@ -91,19 +80,16 @@ span.psw {
     font-size: 35px;
     font-weight: bold;
 }
-
 .close:hover,
 .close:focus {
     color: red;
     cursor: pointer;
 }
-
 /* Add Zoom Animation */
 .animate {
     -webkit-animation: animatezoom 0.6s;
     animation: animatezoom 0.6s
 }
-
 @-webkit-keyframes animatezoom {
     from {-webkit-transform: scale(0)} 
     to {-webkit-transform: scale(1)}
@@ -113,7 +99,6 @@ span.psw {
     from {transform: scale(0)} 
     to {transform: scale(1)}
 }
-
 /* Change styles for span and cancel button on extra small screens */
 @media screen and (max-width: 300px) {
     span.psw {
@@ -163,13 +148,12 @@ span.psw {
 <script>
 var convID = window.location.href.split('=')[1];
 console.log(convID);
-
 function validateLogin() {
 	var xmlhttp = new XMLHttpRequest();
 	xmlhttp.onreadystatechange = function() {
 		if (this.readyState == 4){
 			if(this.status == 200) {
-				document.getElementById('containerBody').innerHTML = '<label for="uname"><b>OTP</b></label><span> Sent to your mobile, please enter OTP in google assitant in the format of OTP - number</span><button type="button" onClick="window.close()">Continue</button>';			
+				document.getElementById('containerBody').innerHTML = '<label for="uname"><b>OTP</b></label><span> has been sent to your mobile, please enter OTP in the required format [ ex: OTP - xxxxx ]</span><button type="button" onClick="window.close()">Continue</button>';			
 				//alert('');
 				//document.getElementById("close").click();
 			}else if(this.status == 400){
@@ -183,7 +167,6 @@ function validateLogin() {
 	xmlhttp.setRequestHeader("Content-Type", "application/json");
 	xmlhttp.send(JSON.stringify({username:document.getElementById("uname").value, password:document.getElementById("psw").value,sess:convID}));	
 }
-
 function validateOtp() {
 	var xmlhttp = new XMLHttpRequest();
 	xmlhttp.onreadystatechange = function() {
@@ -206,7 +189,6 @@ function validateOtp() {
 	xmlhttp.setRequestHeader("Content-Type", "application/json");
 	xmlhttp.send(JSON.stringify({token:tkn,"otp":otp}));	
 }
-
 </script>
 
 </body>

@@ -3,14 +3,15 @@ var router			= express.Router();
 var fs 				= require("fs");	
 var request			= require('request');
 var config			= require('./config.js');
-var path			= require("path");	
+var path			= require("path");
+var incident = require("./sn_api/incident");	
 
 var Otps ={};
 router.get('/close',function(req,res){
 	res.redirect('close.html');
 })
 
-router.post('/botHandler',function(req, res){		
+router.post('/',function(req, res){		
 	var responseObj = JSON.parse(JSON.stringify(config.responseObj));
 	var actionName = req.body.queryResult.action;
 	
@@ -20,7 +21,9 @@ router.post('/botHandler',function(req, res){
 		case 'input.welcome':func = welcome;break;
 		case 'input.verifyOtp': func = verifyOtp;break;
 		case 'input.unknown':func = defaultFallBack;break;
-		case 'input.employee_search': func =  employeeSearch2;break;
+		case 'input.employee_search': func =  employeeSearch1;break;
+		case 'input.create_incident': func = createIncident;break;
+		case 'input.incident_status_by_id': func = getIncidentById;break;
 	}
 	func(req.body,responseObj)
 	.then(function(result){
@@ -62,7 +65,7 @@ var welcome = function(req, responseObj){
 				"followupEventInput":{
 					"name":"mainMenu",
 					"parameters":{ 
-						text:"Hi I'm Hema !. I can help you to manage your leaves,search an employee, account recovery and create or track your service tickets. Please login to begin.",
+						text:"Hi I'm Hema !. I can help you to manage your leave, search an employee, account recovery and create or track your service tickets. Kindly select an option below to continue.",
 						session:req.originalDetectIntentRequest.payload.conversation.conversationId
 					}
 				}
@@ -90,10 +93,164 @@ var welcome = function(req, responseObj){
 	});
 }
 
+var createIncident = function(req, responseObj){
+	return new Promise(function(resolve,reject){
+						var description = "";
+						var urgency = "";
+						var message = "";
+		
+						description = req.queryResult.parameters.Incident_Description;
+						urgency = req.queryResult.parameters.Urgency_Level;
+		
+						incident.createIncident(description, urgency).then(function(resultObj){ //returns promise 
+						message = "We are sorry for the inconvenience.We have logged your incident in our system with the incident iD '" + resultObj.number.replace("INC", "INC ") + "'";
+							simpleResponse(responseObj, message)
+								.then(function(result){var items = [
+				{
+				  "optionInfo": {
+					"key": "HR",
+					"synonyms": [
+						"HR Self Service"
+					]
+				  },
+				  "title": "HR Services",
+				  "description": "for Leave management, Employee Search",				  
+				},
+				{
+				  "optionInfo": {
+					"key": "IT",
+					"synonyms": [
+						"IT Self Service"
+					]
+				  },
+				  "title": "IT Help Desk",
+				  "description": "For : Help desk",				  
+				},
+				{
+				  "optionInfo": {
+					"key": "Meeting",
+					"synonyms": [
+						"Meeting scheduler"
+					]
+				  },
+				  "title": "Meeting scheduler",
+				  "description": "For : create meeting, cancel and reschedule meeting",				  
+				}
+			  ];
+			return listItem(result, "Kindly select an option below to continue",items);
+								})
+								.then(function(result){
+									resolve(result);		
+								})
+						});
+	});
+}
+
+
+var getIncidentById = function(req, responseObj){
+	return new Promise(function(resolve,reject){
+		
+					var incident_number = "";
+					incident_number = "INC"+req.queryResult.parameters.incident_number;
+					var message = "";
+					incident.getIncidentByIncidentId(incident_number).then(function(resultobj){ //returns promise 
+					if (resultobj.length == 0) {
+										message = "There is no record for the given incident number " + incident_number.replace("INC", "INC ");
+							simpleResponse(responseObj, message)
+								.then(function(result){var items = [
+				{
+				  "optionInfo": {
+					"key": "HR",
+					"synonyms": [
+						"HR Self Service"
+					]
+				  },
+				  "title": "HR Services",
+				  "description": "for Leave management, Employee Search",				  
+				},
+				{
+				  "optionInfo": {
+					"key": "IT",
+					"synonyms": [
+						"IT Self Service"
+					]
+				  },
+				  "title": "IT Help Desk",
+				  "description": "For : Help desk",				  
+				},
+				{
+				  "optionInfo": {
+					"key": "Meeting",
+					"synonyms": [
+						"Meeting scheduler"
+					]
+				  },
+				  "title": "Meeting scheduler",
+				  "description": "For : create meeting, cancel and reschedule meeting",				  
+				}
+			  ];
+			return listItem(result, "Kindly select an option below to continue",items);
+								})
+								.then(function(result){
+									resolve(result);		
+								})
+							}
+							else{
+								 var displayText = "Below are the details for the requested Incident:- ";
+								displayText = displayText +"Incident ID : " + resultobj[0].number.replace("INC", "INC ") + " Short Description : " + resultobj[0].short_description + " Status : " + stateDecode(resultobj[0].state);// + "<br><strong>Assigned To :</strong> " + req.app.locals.decodeAssignedTo(resultobj[0].assigned_to);
+								var speech = "These are the details for the requested Incident "
+								responseObj.payload.google.richResponse.items.push({
+									"simpleResponse": {
+										"textToSpeech": speech,
+										"displayText": displayText
+									}
+								});
+var items = [
+				{
+				  "optionInfo": {
+					"key": "HR",
+					"synonyms": [
+						"HR Self Service"
+					]
+				  },
+				  "title": "HR Self Service",
+				  "description": "for Leave management, Employee Search",				  
+				},
+				{
+				  "optionInfo": {
+					"key": "IT",
+					"synonyms": [
+						"IT Self Service"
+					]
+				  },
+				  "title": "IT Self Service",
+				  "description": "For : Help desk",				  
+				},
+				{
+				  "optionInfo": {
+					"key": "Meeting",
+					"synonyms": [
+						"Meeting scheduler"
+					]
+				  },
+				  "title": "Meeting scheduler",
+				  "description": "For : create meeting, cancel and reschedule meeting",				  
+				}
+			  ];
+				listItem(responseObj, "Kindly select an option below to continue",items)
+								.then(function(result){
+									resolve(result);		
+								})
+								
+							}
+						});
+	});
+}
+
 var loginSucess = function(responseObj){
 	return new Promise(function(resolve,reject){
 		console.log('login success');
-		simpleResponse(responseObj, "Congratulations! You have been successfully login. Please select an option from below to continue")
+		simpleResponse(responseObj, "Congratulations! You have been successfully logged in. Kindly select an option below to continue")
 		.then(function(result){	
 			console.log('simple response');
 			var items = [
@@ -115,7 +272,7 @@ var loginSucess = function(responseObj){
 					]
 				  },
 				  "title": "IT Help Desk",
-				  "description": "For : Account recovery , Help desk",				  
+				  "description": "For : Help desk",				  
 				},
 				{
 				  "optionInfo": {
@@ -124,11 +281,11 @@ var loginSucess = function(responseObj){
 						"Meeting scheduler"
 					]
 				  },
-				  "title": "Meeting Self Service",
-				  "description": "For : creating create, cancel and reschedule meeting",				  
+				  "title": "Meeting scheduler",
+				  "description": "For : create meeting, cancel and reschedule meeting",				  
 				}
 			  ];
-			return listItem(result, "Kindly select the service category",items);	
+			return listItem(result, "Kindly select an option below to continue",items);	
 		})		
 		.then(function(result){	
 			//console.log(JSON.stringify(result));
@@ -244,15 +401,22 @@ var employeeSearch1 = function(req, response){
 		}else{
 			empSearchAPI = empSearchAPI+'id='+inputText;
 		}
-		request(empSearchAPI,function(error,response,body){
+		console.log(empSearchAPI);
+		request(empSearchAPI,function(error,res,body){
 			if(error){
-				resolve(employeeInfo({status:'error',sess:req.originalDetectIntentRequest.payload.conversation.conversationId},response));
-			}else{				
-				if(typeof(body.employeeid)=='undefined'){
-					body = {status:'error'};
+				console.log(error);
+				resolve(employeeInfo({techErr:'error',sess:req.originalDetectIntentRequest.payload.conversation.conversationId},response));
+			}else{		
+				if(body.length<=0){
+					resolve(employeeInfo({status:'error',sess:req.originalDetectIntentRequest.payload.conversation.conversationId},response));				
+				}else{
+					if(typeof(body)=='string'){
+						body = body.replace(/]}/ig,"]}$");	
+						body = JSON.parse(body.split('$')[0]);
+					}
+					resolve(employeeInfo(body,response));				
 				}
-				body.sess=req.originalDetectIntentRequest.payload.conversation.conversationId;
-				resolve(employeeInfo(body,response));
+				
 			}
 		});
 	});
@@ -280,7 +444,7 @@ var gotoMenu = function(req, response){
 				  "optionInfo": {
 					"key": "HR",
 					"synonyms": [
-						"HR Self Service"
+						"HR Services"
 					]
 				  },
 				  "title": "HR Services",
@@ -290,24 +454,24 @@ var gotoMenu = function(req, response){
 				  "optionInfo": {
 					"key": "IT",
 					"synonyms": [
-						"IT Self Service"
+						"IT Help Desk"
 					]
 				  },
 				  "title": "IT Help Desk",
-				  "description": "For : Account recovery , Help desk",				  
+				  "description": "For :  Help desk",				  
 				},
 				{
 				  "optionInfo": {
 					"key": "Meeting",
 					"synonyms": [
-						"Meeting Self Service"
+						"Meeting scheduler"
 					]
 				  },
 				  "title": "Meeting scheduler",
-				  "description": "For : creating create, cancel and reschedule meeting",				  
+				  "description": "For : create meeting, cancel and reschedule meeting",				  
 				}
 			  ];
-			return listItem(result, "Kindly select the service category",items);	
+			return listItem(result, "Kindly select an option below to continue",items);	
 		})		
 		.then(function(result){				
 			console.log('leving log sucess');
@@ -315,22 +479,65 @@ var gotoMenu = function(req, response){
 		}) 
 	});
 }
+
+//For decoding state from number to text
+function stateDecode (state) {
+    console.log("Inside stateDecode function");
+    console.log("Recieved state " + state);
+
+    var decodedState = ""
+
+    switch (state) {
+        case "1" :
+            decodedState = "New";
+            break;
+        case "2" :
+            decodedState = "In Progress";
+            break;
+        case "3" : 
+            decodedState = "On Hold";
+            break;
+        case "6" :
+            decodedState = "Resolved";
+            break;
+        case "7" :
+            decodedState = "Closed";
+            break;
+        case "8" :
+            decodedState = "Canceled";
+    }
+
+    return decodedState
+}
+
+
 var employeeInfo = function(empObj,response){
-	console.log('employee info', JSON.stringify(response));
-	if(typeof(empObj.status)=='undefined'){
-		var empData = "Employee Id: "+empObj.employeeid+"\n\rEmployee Name : "+empObj.employeedetails[0].employeename+"\n\rMobile no : "+empObj.employeedetails[0].mobileno;		
+	console.log('employee info', JSON.stringify(response),empObj);
+	if(typeof(empObj.techErr)=='undefined'){
+		if(typeof(empObj.status)=='undefined'){
+			var empData = "Employee Id: "+empObj.employeeid+"\n\rEmployee Name : "+empObj.employeedetails[0].employeename+"\n\rMobile no : "+empObj.employeedetails[0].mobileno;		
+		}else{
+			var empData = "Employee details Not Found";
+		}
 	}else{
-		var empData = "Employee details Not Found";
+		var empData = "There is some technical issue please try again later";
 	}
-	return simpleResponse(response, empData)
-		.then(function(result){	
+	return simpleResponse(response, "Employee Details")
+		.then(function(result){
+			response.payload.google.richResponse.items.push({
+				{"basicCard": {
+					"formattedText": 'Mobile no. : '+empObj.employeedetails[0].mobileno,
+					"title":'Name : 'empObj.employeedetails[0].employeename,							
+					"sub-title":'Emp Id : 'empObj.employeeid,					
+					"image": {},				
+			});
 			console.log('simple response');
 			var items = [
 				{
 				  "optionInfo": {
 					"key": "HR",
 					"synonyms": [
-						"HR Self Service"
+						"HR Services"
 					]
 				  },
 				  "title": "HR Self Service",
@@ -340,24 +547,23 @@ var employeeInfo = function(empObj,response){
 				  "optionInfo": {
 					"key": "IT",
 					"synonyms": [
-						"IT Self Service"
-					]
+						"IT Help Desk"					]
 				  },
-				  "title": "IT Self Service",
-				  "description": "For : Account recovery , Help desk",				  
+				  "title": "IT Help Desk",
+				  "description": "For : Help desk",				  
 				},
 				{
 				  "optionInfo": {
 					"key": "Meeting",
 					"synonyms": [
-						"Meeting Self Service"
+						"Meeting scheduler"
 					]
 				  },
-				  "title": "Meeting Self Service",
-				  "description": "For : creating create, cancel and reschedule meeting",				  
+				  "title": "Meeting scheduler",
+				  "description": "For : create meeting, cancel and reschedule meeting",				  
 				}
 			  ];
-			return listItem(result, "Kindly select the service category",items);	
+			return listItem(result, "Kindly select an option below to continue",items);	
 		})		
 		.then(function(result){				
 			console.log('leving log sucess');
@@ -370,8 +576,3 @@ var employeeInfo = function(empObj,response){
 	});*/
 }
 module.exports = router;
-
-
-
-
-
